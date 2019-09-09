@@ -1,0 +1,247 @@
+/*
+
+Tab linene matches container color, show on hover on background tabs
+
+Contributor(s): Isaac-Newt
+
+*/
+
+.tabbrowser-tab[usercontextid] .tab-line{
+  background-color:var(--identity-tab-color)!important;
+}
+
+.tabbrowser.tab[usercontextid] .tab-line {
+  background:var(--identity-tab-color) !important;
+}
+
+.tabbrowser-tab[usercontextid] > .tab-stack > .tab-background > .tab-bottom-line {
+  background: none !important;
+}
+
+.tabbrowser-tab::after, .tabbrowser-tab::before {
+   border-left: none !important; /* Remove borders from inactive tabs */
+}
+
+:root {
+    --tabs-border: transparent !important; /* Remove borders from active tab and below tabs */
+    --toolbarbutton-border-radius: 1px !important;
+    --sidebar-width: 180px;
+    --toolbar-height: -26px;
+    --menubar-height: -40px;
+    --toolmenubar-height: -66px; /* sum of previous two */
+}
+
+#contentAreaContextMenu{ margin: 5px 0 0 5px }
+
+* {
+    font-family: "Noto Sans:style=Regular";
+    font-size: 14px;
+}
+
+#main-window[tabsintitlebar="true"]:not([extradragspace="true"]) #TabsToolbar > .toolbar-items {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#main-window:not([tabsintitlebar="true"]) #TabsToolbar {
+    visibility: collapse !important;
+}
+
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+  display: none;
+}
+
+/* Hide sidebar splitter */
+#sidebar-splitter {
+  max-width: 1px;
+  margin-right: -2px;
+  opacity: 0;
+}
+
+#browser vbox#appcontent tabbrowser, #content, #tabbrowser-tabpanels, 
+browser[type=content-primary],browser[type=content] > html {
+    background: #222222 !important
+}
+
+@-moz-document url(chrome://browser/content/browser.xul) {
+#fullscreen-warning {
+  display: none !important;
+}
+
+/* lock sidebar to specified width */
+#sidebar-box, #sidebar-box #sidebar {
+    min-width: var(--sidebar-width) !important;
+    max-width: var(--sidebar-width) !important;
+}
+
+/* lock sidebar to height by doing the inverse margin of the toolbar element */
+#sidebar-box {
+  z-index: 1000 !important;
+  position: relative!important;
+  margin-top: var(--menubar-height) !important;
+  border-right: 1px solid #ccc;
+}
+
+#main-window[title^="Firefox Developer Edition"] #sidebar-box {
+  margin-top: var(--toolmenubar-height) !important;
+}
+
+#sidebar { border-right: 1px solid #ccc; }
+
+toolbar#nav-bar {
+  padding-top: 12px;
+  padding-bottom: 7px;
+  margin-left: var(--sidebar-width);
+  padding-left: 7px;
+}
+
+/* #PopupAutoCompleteRichResult .autocomplete-richlistbox{ */
+/*     margin-left: calc(100% - 180px) !important; */
+/* } */
+
+/* /\* Set drop-down width *\/  */
+/* #PopupAutoCompleteRichResult { */
+/*     position: relative !important; */
+/*   --item-padding-start: 0 !important;  */
+/*   max-width: calc(100% - 137px) !important; */
+/*   margin-left: -137px !important; */
+/* }  */
+
+/* #PopupAutoCompleteRichResult { */
+/*     margin-left: 0px !important; */
+/* } */
+
+/* #PopupAutoCompleteRichResult { */
+/*     /\* max-width: 3000px !important; *\/ */
+/*     width: calc(max-content-180px) !important; */
+/*     margin-left: -138px !important; */
+/* } */
+
+.search-panel-header, .search-panel-one-offs {
+    display: none !important;
+}
+
+#PopupAutoCompleteRichResult
+{
+	-moz-window-shadow: none !important;
+	background: 0 !important;
+	margin-top: 3px !important;
+	border: 0 !important;
+	
+	--padding-start: calc(var(--item-padding-start) + 22px) !important;
+	--padding-end: calc(var(--item-padding-end)) !important;
+}
+
+#PopupAutoCompleteRichResult .autocomplete-richlistbox
+{
+	padding: 0 !important;
+	
+	margin-inline-start: var(--padding-start) !important;
+	margin-inline-end: var(--padding-end) !important;
+	
+	background: var(--arrowpanel-background) !important;
+	
+	box-shadow:
+		0 5px 5px -3px rgba(0, 0, 0, .2),
+		0 8px 10px 1px rgba(0, 0, 0, .14),
+		0 3px 14px 2px rgba(0, 0, 0, .12) !important;
+}
+
+#PopupAutoCompleteRichResult .autocomplete-richlistitem
+{
+	padding: 0 16px  !important;
+	border: 0 !important;
+	display: flex !important;
+	align-items: center !important;
+	border-radius: 0 !important;
+}
+
+.ac-type-icon
+{
+	order: 9 !important;
+	margin-inline-start: 16px !important;
+	margin-inline-end: 0 !important;
+}
+
+.ac-site-icon
+{
+	margin-inline-end: 16px !important;
+}
+
+.ac-separator
+{
+	display: none !important;
+}
+
+.ac-title,
+.ac-url
+{
+	flex: 1 !important;
+}
+
+/* Hide line for searching sld.tld below "Visit" Line */
+#PopupAutoCompleteRichResult richlistitem:first-of-type[actiontype="visiturl"] +
+  richlistitem[actiontype="searchengine"] {
+    display:none !important;
+}
+/* EXCEPTION: Show "Search with" for keyworded search engines */
+#PopupAutoCompleteRichResult richlistitem:first-of-type[actiontype="searchengine"][displayurl*=',"alias":'], 
+#PopupAutoCompleteRichResult richlistitem:first-of-type[actiontype="searchengine"][url*=',"alias":']{
+    display:-moz-box !important;
+}
+/* Restore persistent display of drop-marker */
+#urlbar:not(:hover) > .urlbar-textbox-container > .urlbar-history-dropmarker {
+    opacity: 1 !important;
+}
+/* /\* Set max-height for items visible without scrolling *\/ */
+/* #PopupAutoCompleteRichResult .autocomplete-richlistbox { */
+/*     height: unset !important; */
+/*     max-height: calc(45.5px * 10) !important; */
+/* } */
+/* Create sufficient height for two lines */
+#PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) {
+    position: relative !important;
+    height: 45.5px !important;
+}
+/* Subtle border between results */
+#PopupAutoCompleteRichResult .autocomplete-richlistitem {
+    border-bottom-color: #eee !important;
+}
+/* Position page title, set font-size */
+#PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-title {
+    position: absolute !important;
+    left: 54px;
+    top: 1px;
+    font-size: 14px !important;
+}
+/* Position page url / action, set font-size */
+#PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-url,
+#PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-action {
+    position: absolute !important;
+    left: 54px;
+    top: 20px;
+    font-size: 12px !important;
+}
+
+/* Position bookmark tags */
+#PopupAutoCompleteRichResult .autocomplete-richlistitem .ac-tags {
+    position: absolute !important;
+    right: 0px;
+    top: 3px;
+}
+/* Hide separator between title and URL */
+#PopupAutoCompleteRichResult .autocomplete-richlistitem:not([actiontype="searchengine"]) .ac-separator {
+    display: none !important;
+}
+/* Position special icon (bookmark, switch-to-tab) */
+#PopupAutoCompleteRichResult .autocomplete-richlistitem .ac-type-icon {
+    margin-left: 4px !important;
+}
+/* Prevent excess indenting of icons in Photon */
+#PopupAutoCompleteRichResult .autocomplete-richlistitem [anonid="type-icon-spacer"] {
+    display: none !important;
+}
+/* #PopupAutoCompleteRichResult { */
+/*     --item-padding-start: 0 !important; */
+/* } */
+

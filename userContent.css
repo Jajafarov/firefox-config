@@ -1,0 +1,10 @@
+/*CHANGE NEW TAB BACKGROUND COLOUR*/
+
+@-moz-document url("about:newtab"), url("about:home") {
+
+    body { background-color: #020914 !important; }
+
+    .search-wrapper .logo-and-wordmark .wordmark {
+	fill: #AAAAAA !important;
+    }
+}
